@@ -2,7 +2,7 @@
 <html lang="ro">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Configurator Florărie</title>
     <style>
         :root {
@@ -16,37 +16,48 @@
             margin: 0;
             padding: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
         body {
             background-color: var(--pink-light);
             color: var(--text-dark);
-            padding: 20px;
+            padding: 10px;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             min-height: 100vh;
         }
         .container {
             background: white;
-            padding: 30px;
+            padding: 20px;
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
             max-width: 900px;
             width: 100%;
             display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
+            flex-direction: column; /* Pe mobil elementele stau pe verticală */
+            gap: 20px;
         }
+        
+        /* Când ecranul este mai mare (tablete/PC), așezăm elementele pe două coloane */
+        @media (min-width: 768px) {
+            .container {
+                flex-direction: row;
+                padding: 30px;
+                gap: 30px;
+            }
+        }
+
         .visual-side {
             flex: 1;
-            min-width: 300px;
+            width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
         .product-image-container {
             width: 100%;
-            height: 400px;
+            height: 320px; /* Înălțime optimă pentru ecranele de telefon */
             border-radius: 15px;
             overflow: hidden;
             background: #f9f9f9;
@@ -56,37 +67,47 @@
             border: 2px solid #eee;
             position: relative;
         }
+        @media (min-width: 768px) {
+            .product-image-container {
+                height: 400px;
+            }
+        }
         .product-image {
-            max-width: 100%;
-            max-height: 100%;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
         }
         .image-hint {
             margin-top: 10px;
-            font-size: 12px;
+            font-size: 11px;
             color: #777;
             background: #eee;
-            padding: 5px 10px;
-            border-radius: 5px;
+            padding: 6px 12px;
+            border-radius: 6px;
             text-align: center;
             font-family: monospace;
+            width: 100%;
+            word-break: break-all;
         }
         .form-side {
             flex: 1;
-            min-width: 300px;
+            width: 100%;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
         h1 {
             color: var(--pink-dark);
-            margin-bottom: 10px;
-            font-size: 28px;
+            margin-bottom: 5px;
+            font-size: 24px;
         }
         .section-title {
             font-weight: bold;
-            margin: 15px 0 8px 0;
+            margin: 20px 0 8px 0;
             color: #555;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         .colors-grid {
             display: grid;
@@ -97,38 +118,70 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            padding: 10px;
+            padding: 12px;
             border: 1px solid #ddd;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
             transition: all 0.2s;
+            font-size: 15px;
         }
-        .color-option:hover {
-            background: #fbfbfb;
+        .color-option:active {
+            background: #f5f5f5;
         }
         .color-option input {
+            width: 18px;
+            height: 18px;
             cursor: pointer;
+            accent-color: var(--pink-main);
         }
         .color-circle {
-            width: 20px;
-            height: 20px;
+            width: 22px;
+            height: 22px;
             border-radius: 50%;
             border: 1px solid #ccc;
         }
+        
+        /* Controlere mari tactile pentru cantitate */
         .qty-container {
             display: flex;
             align-items: center;
-            gap: 15px;
-            margin-top: 5px;
+            background: #fdfdfd;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 4px;
+            max-width: 180px;
+            justify-content: space-between;
+        }
+        .qty-btn {
+            width: 40px;
+            height: 40px;
+            background: #fff0f5;
+            border: none;
+            border-radius: 8px;
+            color: var(--pink-dark);
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .qty-btn:active {
+            background: #ffe1ec;
         }
         .qty-input {
-            width: 80px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
+            width: 60px;
+            border: none;
+            font-size: 18px;
             text-align: center;
+            font-weight: bold;
+            outline: none;
+            background: transparent;
         }
+        .qty-text-hint {
+            color: #666; 
+            font-size: 12px; 
+            margin-top: 6px;
+            line-height: 1.4;
+        }
+
         .addon-container {
             display: flex;
             align-items: center;
@@ -141,9 +194,10 @@
             margin-top: 15px;
         }
         .addon-container input {
-            width: 18px;
-            height: 18px;
+            width: 20px;
+            height: 20px;
             cursor: pointer;
+            accent-color: var(--pink-main);
         }
         .price-box {
             margin-top: 25px;
@@ -153,8 +207,10 @@
             text-align: center;
         }
         .price-label {
-            font-size: 14px;
+            font-size: 13px;
             color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         .price-value {
             font-size: 32px;
@@ -165,21 +221,26 @@
             background-color: #25D366;
             color: white;
             border: none;
-            padding: 15px;
-            font-size: 18px;
+            padding: 16px;
+            font-size: 16px;
             font-weight: bold;
-            border-radius: 10px;
+            border-radius: 12px;
             cursor: pointer;
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 10px;
-            margin-top: 20px;
+            margin-top: 15px;
             text-decoration: none;
-            transition: background 0.2s;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.2);
         }
-        .btn-whatsapp:hover {
-            background-color: #20ba5a;
+        .btn-whatsapp:active {
+            background-color: #20ba59;
+        }
+        .btn-whatsapp svg {
+            width: 22px;
+            height: 22px;
+            fill: white;
         }
     </style>
 </head>
@@ -188,8 +249,7 @@
 <div class="container">
     <div class="visual-side">
         <div class="product-image-container">
-            <!-- Imagine de pornire configurată inițial implicit -->
-            <img id="productImage" class="product-image" src="buchet-albastru-19-stitch.jpg" alt="Previzualizare Buchet">
+            <img id="productImage" class="product-image" src="buchet-albastru-19-stitch.jpg" alt="Previzualizare Buchet" onerror="this.src='buchet-baza.jpg'">
         </div>
         <div class="image-hint">
             Fișier căutat în GitHub: <span id="fileNameLabel">buchet-albastru-19-stitch.jpg</span>
@@ -199,13 +259,13 @@
     <div class="form-side">
         <div>
             <h1>Buchetul Tău Personalizat</h1>
-            <p style="color: #666; font-size: 14px;">Alege culorile preferate, reglează numărul de trandafiri și adaugă decorațiuni speciale.</p>
+            <p style="color: #666; font-size: 13px;">Alege culorile preferate, reglează numărul de trandafiri și adaugă decorațiuni speciale.</p>
 
-            <div class="section-title">1. Alege culorile trandafirilor (Selecție multiplă):</div>
+            <div class="section-title">1. Alege culorile trandafirilor:</div>
             <div class="colors-grid">
                 <label class="color-option">
                     <input type="checkbox" class="color-checkbox" value="albastru" checked onchange="updateConfigurator()">
-                    <div class="color-circle" style="background-color: #0000ff;"></div>
+                    <div class="color-circle" style="background-color: #3a86ff;"></div>
                     <span>Albastru</span>
                 </label>
                 <label class="color-option">
@@ -227,9 +287,11 @@
 
             <div class="section-title">2. Câți trandafiri dorești în total?</div>
             <div class="qty-container">
-                <input type="number" id="roseCount" class="qty-input" value="19" min="1" oninput="updateConfigurator()">
-                <span style="color: #666; font-size: 13px;">(Pachet special de 19 fire la 100 lei. În rest, 5 lei / fir)</span>
+                <button type="button" class="qty-btn" onclick="changeQty(-1)">-</button>
+                <input type="number" id="roseCount" class="qty-input" value="19" min="1" oninput="validateAndUpdate()">
+                <button type="button" class="qty-btn" onclick="changeQty(1)">+</button>
             </div>
+            <div class="qty-text-hint">⚡ Pachet special de 19 fire la 100 lei.<br>În rest, prețul este calculat la 5 lei / fir.</div>
 
             <label class="addon-container">
                 <input type="checkbox" id="stitchCheckbox" checked onchange="updateConfigurator()">
@@ -242,87 +304,5 @@
 
         <div>
             <div class="price-box">
-                <div class="price-label">Preț Total Estimatic</div>
-                <div id="totalPrice" class="price-value">150 Lei</div>
-            </div>
 
-            <a id="whatsappButton" href="#" target="_blank" class="btn-whatsapp">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.713-1.455L0 24zm6.59-4.846c1.66.986 3.292 1.48 4.961 1.48 5.384 0 9.75-4.381 9.753-9.755.002-2.602-1.01-5.05-2.852-6.895C16.608 2.14 14.16 1.127 11.56 1.127c-5.389 0-9.755 4.381-9.759 9.756-.001 1.785.485 3.528 1.405 5.111l-.992 3.624 3.714-.973zm11.114-7.364c-.303-.151-1.793-.884-2.046-.977-.253-.093-.438-.139-.623.139-.184.278-.713.884-.874 1.069-.162.185-.324.208-.627.058-.302-.151-1.277-.47-2.433-1.502-.899-.802-1.506-1.792-1.682-2.094-.177-.302-.019-.465.132-.615.136-.135.303-.352.454-.528.151-.176.202-.294.303-.49.101-.197.051-.369-.025-.521-.076-.151-.623-1.502-.853-2.054-.225-.54-.471-.465-.647-.474-.167-.008-.36-.01-.555-.01-.195 0-.513.073-.781.365-.268.292-1.025 1.002-1.025 2.444 0 1.442 1.049 2.836 1.196 3.033.147.196 2.065 3.154 5.003 4.425.699.302 1.246.483 1.672.619.702.223 1.342.191 1.847.116.564-.084 1.793-.733 2.046-1.407.253-.673.253-1.252.177-1.371-.077-.119-.27-.191-.573-.342z"/></svg>
-                Trimite Comanda pe WhatsApp
-            </a>
-        </div>
-    </div>
-</div>
-
-<script>
-    // MODIFICĂ AICI: Pune numărul tău real de telefon (cu codul țării în față, ex: 40 pentru România)
-    const NUMAR_TELEFON = "40722000000";
-
-    function updateConfigurator() {
-        // 1. Obținere culori selectate
-        let checkedColors = [];
-        document.querySelectorAll('.color-checkbox:checked').forEach(cb => {
-            checkedColors.push(cb.value);
-        });
-        
-        // Sortăm alfabetic culorile pentru a păstra consistența numelor fișierelor
-        checkedColors.sort();
-        
-        // Dacă nu e bifată nicio culoare, punem implicit "mixt" sau o valoare de siguranță
-        let colorString = checkedColors.length > 0 ? checkedColors.join('-') : 'mixt';
-
-        // 2. Obținere număr trandafiri
-        let roseInput = document.getElementById('roseCount');
-        let count = parseInt(roseInput.value);
-        if (isNaN(count) || count < 1) {
-            count = 1;
-        }
-
-        // 3. Obținere stare pluș Stitch
-        let hasStitch = document.getElementById('stitchCheckbox').checked;
-
-        // 4. Calcul Preț conform regulilor matematice transmise
-        let price = 0;
-        if (count === 19) {
-            price = 100; // Pachet special fixat la 100 lei
-        } else {
-            price = count * 5; // Toate celelalte cantități se calculează la 5 lei firul
-        }
-
-        if (hasStitch) {
-            price += 50; // Adăugare preț pluș Stitch
-        }
-
-        // Afișare preț pe ecran
-        document.getElementById('totalPrice').innerText = price + " Lei";
-
-        // 5. Generare dinamică nume fișier imagine pentru GitHub
-        let stitchSuffix = hasStitch ? '-stitch' : '';
-        let fileName = `buchet-${colorString}-${count}${stitchSuffix}.jpg`;
-
-        // Actualizare elemente vizuale
-        document.getElementById('productImage').src = fileName;
-        document.getElementById('fileNameLabel').innerText = fileName;
-
-        // 6. Generare text și link pentru WhatsApp
-        let culoriText = checkedColors.length > 0 ? checkedColors.join(', ') : 'Nespecificat';
-        let stitchText = hasStitch ? 'Da' : 'Nu';
-        
-        let message = `Bună ziua! Doresc să comand un buchet personalizat de la florărie:\n\n`;
-        message += `• Culori trandafiri: ${culoriText}\n`;
-        message += `• Număr total trandafiri: ${count} fire\n`;
-        message += `• Jucărie Stitch inclusă: ${stitchText}\n\n`;
-        message += `★ Preț Total Estimativ: ${price} Lei\n\n`;
-        message += `Te rog să-mi confirmi disponibilitatea. Mulțumesc!`;
-
-        let encodedMessage = encodeURIComponent(message);
-        document.getElementById('whatsappButton').href = `https://wa.me/${NUMAR_TELEFON}?text=${encodedMessage}`;
-    }
-
-    // Rulăm funcția o dată la încărcarea paginii pentru a genera starea inițială corectă
-    window.onload = updateConfigurator;
-</script>
-
-</body>
-</html>
 
