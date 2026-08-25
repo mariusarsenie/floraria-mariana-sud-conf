@@ -245,10 +245,11 @@
 <div class="container">
     <div class="visual-side">
         <div class="product-image-container">
-            <img id="productImage" class="product-image" src="buchet-albastru-19-stitch.jpg" alt="Previzualizare Buchet">
+            <!-- Punctează inițial către poza ta urcată 10440.jpg -->
+            <img id="productImage" class="product-image" src="10440.jpg" alt="Previzualizare Buchet">
         </div>
         <div class="image-hint">
-            Fișier căutat în GitHub: <span id="fileNameLabel">buchet-albastru-19-stitch.jpg</span>
+            Fișier căutat în GitHub: <span id="fileNameLabel">10440.jpg</span>
         </div>
     </div>
 
@@ -260,22 +261,22 @@
             <div class="section-title">1. Alege culorile trandafirilor:</div>
             <div class="colors-grid">
                 <label class="color-option">
-                    <input type="checkbox" class="color-checkbox" value="albastru" checked onchange="updateConfigurator()">
+                    <input type="checkbox" class="color-checkbox" id="color-albastru" value="albastru" checked onchange="updateConfigurator()">
                     <div class="color-circle" style="background-color: #3a86ff;"></div>
                     <span>Albastru</span>
                 </label>
                 <label class="color-option">
-                    <input type="checkbox" class="color-checkbox" value="roz" onchange="updateConfigurator()">
+                    <input type="checkbox" class="color-checkbox" id="color-roz" value="roz" onchange="updateConfigurator()">
                     <div class="color-circle" style="background-color: #ff69b4;"></div>
                     <span>Roz</span>
                 </label>
                 <label class="color-option">
-                    <input type="checkbox" class="color-checkbox" value="rosu" onchange="updateConfigurator()">
+                    <input type="checkbox" class="color-checkbox" id="color-rosu" value="rosu" onchange="updateConfigurator()">
                     <div class="color-circle" style="background-color: #ff0000;"></div>
                     <span>Roșu</span>
                 </label>
                 <label class="color-option">
-                    <input type="checkbox" class="color-checkbox" value="alb" onchange="updateConfigurator()">
+                    <input type="checkbox" class="color-checkbox" id="color-alb" value="alb" onchange="updateConfigurator()">
                     <div class="color-circle" style="background-color: #ffffff;"></div>
                     <span>Alb</span>
                 </label>
@@ -305,4 +306,3 @@
             </div>
 
             <button class="btn-whatsapp" onclick="sendOrder()">
-                <svg viewBox="0 0 24 24">
