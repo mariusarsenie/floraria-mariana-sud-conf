@@ -23,7 +23,6 @@
 
         body {
             background-color: #fdf0f5;
-            /* Fundal elegant cu model discret de trandafiri generați prin cod pentru viteză pe mobil */
             background-image: 
                 radial-gradient(circle at 20% 20%, rgba(255, 71, 126, 0.05) 0%, transparent 40%),
                 radial-gradient(circle at 80% 60%, rgba(255, 71, 126, 0.05) 0%, transparent 40%),
@@ -303,7 +302,6 @@
 
     <div class="image-section">
         <div class="product-image-wrapper">
-            <!-- Poza de bază (se va schimba dinamic) -->
             <img id="productImage" class="product-image" src="buchet-baza.jpg" alt="Buchet Trandafiri" onerror="this.src='buchet-baza.jpg'">
         </div>
         <div id="debugFilename" class="debug-filename">Fișier căutat: buchet-baza.jpg</div>
@@ -311,7 +309,6 @@
     </div>
 
     <div class="config-section">
-        <!-- SELECȚIE CULORI (MULTICOLOR) -->
         <div class="section-title">1. Alege culorile trandafirilor</div>
         <div class="options-grid">
             <div>
@@ -337,8 +334,13 @@
             </div>
         </div>
 
-        <!-- NUMĂR TRANDAFIRI -->
         <div class="section-title">2. Câți trandafiri dorești?</div>
         <div class="quantity-selector">
             <button class="qty-btn" onclick="changeQty(-1)">-</button>
             <div class="qty-input-wrapper">
+                <input type="number" id="roseQty" class="qty-input" value="19" min="1" onchange="validateAndUpdate()">
+                <div class="qty-hint">Ofertă specială la 19 fire!</div>
+            </div>
+            <button class="qty-btn" onclick="changeQty(1)">+</button>
+        </div>
+
