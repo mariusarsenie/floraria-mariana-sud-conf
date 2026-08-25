@@ -35,11 +35,10 @@
             max-width: 900px;
             width: 100%;
             display: flex;
-            flex-direction: column; /* Pe mobil elementele stau pe verticală */
+            flex-direction: column;
             gap: 20px;
         }
         
-        /* Când ecranul este mai mare (tablete/PC), așezăm elementele pe două coloane */
         @media (min-width: 768px) {
             .container {
                 flex-direction: row;
@@ -57,7 +56,7 @@
         }
         .product-image-container {
             width: 100%;
-            height: 320px; /* Înălțime optimă pentru ecranele de telefon */
+            height: 320px;
             border-radius: 15px;
             overflow: hidden;
             background: #f9f9f9;
@@ -125,9 +124,6 @@
             transition: all 0.2s;
             font-size: 15px;
         }
-        .color-option:active {
-            background: #f5f5f5;
-        }
         .color-option input {
             width: 18px;
             height: 18px;
@@ -141,7 +137,7 @@
             border: 1px solid #ccc;
         }
         
-        /* Controlere mari tactile pentru cantitate */
+        /* Butoane mari de plus si minus pentru telefon */
         .qty-container {
             display: flex;
             align-items: center;
@@ -233,6 +229,7 @@
             margin-top: 15px;
             text-decoration: none;
             box-shadow: 0 4px 12px rgba(37, 211, 102, 0.2);
+            width: 100%;
         }
         .btn-whatsapp:active {
             background-color: #20ba59;
@@ -304,5 +301,8 @@
 
         <div>
             <div class="price-box">
+                <div class="price-label">Preț Total Estimativ</div>
+                <div id="totalPrice" class="price-value">150 Lei</div>
+            </div>
 
-
+            <button class="btn-whatsapp" onclick="sendOrder()">
